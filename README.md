@@ -73,3 +73,6 @@ BTL_OOP/
 - **Employee** - Nhân viên (option)
 - **Revenue** - Báo cáo doanh thu (option)
 - Java Spring Boot
+
+## Class Diagram
+![](UML/class_diagram.png)
