@@ -29,38 +29,86 @@ BTL_OOP/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/btl/oop/
-│   │   │   ├── BtlOopApplication.java          # Main application class
-│   │   │   ├── config/                        # Configuration classes
+│   │   │   ├── BtlOopApplication.java          # Main Spring Boot application
+│   │   │
+│   │   │   ├── config/                         # Cấu hình (DB, Security, Web MVC)
 │   │   │   │   ├── DatabaseConfig.java
 │   │   │   │   ├── SecurityConfig.java
 │   │   │   │   └── WebConfig.java
-│   │   │   ├── controller/                    # REST Controllers
-│   │   │   │   └── UserController.java
-│   │   │   ├── dto/                          # Data Transfer Objects
+│   │   │
+│   │   │   ├── controller/                     # Controllers cho cả Customer & Admin
+│   │   │   │   ├── AuthController.java         # Login, Register, Logout
+│   │   │   │   ├── BookViewController.java     # Cho Customer xem sách
+│   │   │   │   ├── OrderController.java        # Customer đặt hàng
+│   │   │   │   ├── UserController.java         # Admin CRUD User
+│   │   │   │   ├── BookController.java         # Admin CRUD Book
+│   │   │   │   └── OrderAdminController.java   # Admin quản lý đơn hàng
+│   │   │
+│   │   │   ├── dto/                            # Data Transfer Objects
 │   │   │   │   ├── ApiResponseDTO.java
 │   │   │   │   ├── UserRequestDTO.java
-│   │   │   │   └── UserResponseDTO.java
-│   │   │   ├── entity/                       # JPA Entities
+│   │   │   │   ├── UserResponseDTO.java
+│   │   │   │   ├── BookRequestDTO.java
+│   │   │   │   └── BookResponseDTO.java
+│   │   │
+│   │   │   ├── entity/                         # JPA Entities (bảng CSDL)
 │   │   │   │   ├── BaseEntity.java
-│   │   │   │   └── User.java
-│   │   │   ├── exception/                    # Custom Exceptions
+│   │   │   │   ├── User.java                   # Dùng cho cả Customer & Admin
+│   │   │   │   ├── Book.java
+│   │   │   │   ├── Order.java
+│   │   │   │   └── OrderItem.java
+│   │   │
+│   │   │   ├── exception/                      # Ngoại lệ custom
 │   │   │   │   ├── DuplicateResourceException.java
 │   │   │   │   ├── GlobalExceptionHandler.java
 │   │   │   │   └── ResourceNotFoundException.java
-│   │   │   ├── repository/                   # Data Access Layer
-│   │   │   │   └── UserRepository.java
-│   │   │   ├── service/                      # Business Logic Layer
+│   │   │
+│   │   │   ├── repository/                     # Data Access Layer (DAO)
+│   │   │   │   ├── UserRepository.java
+│   │   │   │   ├── BookRepository.java
+│   │   │   │   └── OrderRepository.java
+│   │   │
+│   │   │   ├── service/                        # Business Logic Layer
 │   │   │   │   ├── UserService.java
+│   │   │   │   ├── BookService.java
+│   │   │   │   ├── OrderService.java
 │   │   │   │   └── impl/
-│   │   │   │       └── UserServiceImpl.java
-│   │   │   └── util/                         # Utility Classes
+│   │   │   │       ├── UserServiceImpl.java
+│   │   │   │       ├── BookServiceImpl.java
+│   │   │   │       └── OrderServiceImpl.java
+│   │   │
+│   │   │   └── util/                           # Helper / Utils
 │   │   │       └── MapperUtil.java
+│   │   │
 │   │   └── resources/
-│   │       ├── application.properties        # Application configuration
-│   │       └── schema.sql                   # Database schema
-│   └── test/                                # Test classes
-├── pom.xml                                  # Maven dependencies
-└── README.md                               # Project documentation
+│   │       ├── application.properties          # Cấu hình Spring Boot
+│   │       ├── schema.sql                      # Script tạo CSDL
+│   │       └── templates/                      # Giao diện Thymeleaf
+│   │           ├── index.html                  # Landing Page
+│   │           ├── auth/                       # Trang login/register
+│   │           │   ├── login.html
+│   │           │   └── register.html
+│   │           ├── books/                      # Customer & Admin CRUD sách
+│   │           │   ├── list.html
+│   │           │   ├── create.html
+│   │           │   └── update.html
+│   │           ├── users/                      # Quản lý User (Admin)
+│   │           │   ├── list.html
+│   │           │   ├── create.html
+│   │           │   └── update.html
+│   │           ├── orders/                     # Quản lý/đặt hàng
+│   │           │   ├── cart.html
+│   │           │   ├── checkout.html
+│   │           │   ├── list.html               # Cho admin quản lý đơn hàng
+│   │           │   └── detail.html
+│   │           └── fragments/                  # Layout chung (header/footer)
+│   │               ├── header.html
+│   │               └── footer.html
+│   │
+│   └── test/                                   # Unit & Integration Tests
+│
+├── pom.xml                                     # Maven dependencies
+└── README.md                                   # Tài liệu dự án
 ```
 
 ## Các Entity cần thêm cho hệ thống nhà sách
