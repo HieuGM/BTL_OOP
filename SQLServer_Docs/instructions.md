@@ -36,7 +36,7 @@
 
 Mình dùng dữ liệu mẫu **BikeStores** để minh họa các câu lệnh trong hướng dẫn
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 ## 1. Select
 
@@ -57,11 +57,11 @@ FROM
 Khi xử lý câu lệnh SELECT, SQL Server sẽ xử lý mệnh đề FROM trước, sau đó mới đến mệnh đề SELECT, mặc dù mệnh đề SELECT xuất hiện trước mệnh đề FROM trong cú pháp.
 
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 Ví dụ trong `sample database`
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 
 ### 1.1.Truy vấn first_name và last_name
@@ -73,7 +73,7 @@ FROM
     sales.customers;
 ```
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 Kết quả của một `query` được gọi là `result set`
 
@@ -88,7 +88,7 @@ FROM
     sales.customers;
 ```
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 ### 1.3. Truy vấn toàn bộ tất cả các cột của bảng
 
@@ -98,7 +98,7 @@ Sử dụng `SELECT *`
 SELECT * FROM sales.customers;
 ```
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 ### 1.4 WHERE
 
@@ -112,11 +112,11 @@ FROM
 WHERE
     state = 'CA';
 ```
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 Luồng hoạt động:
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 ### 1.5 ORDER BY
 
@@ -130,11 +130,11 @@ WHERE
 ORDER BY
     first_name; // so sánh
 ```
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 Luồng hoạt động:
 
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 ### 1.6 GROUP BY
 
@@ -152,11 +152,11 @@ ORDER BY
     city;
 ```
 
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 Luồng hoạt động
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 ### 1.7 HAVING
 ```sql
@@ -175,7 +175,7 @@ ORDER BY
     city;
 ```
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
 ## 2. ORDER BY
 
@@ -226,7 +226,7 @@ ORDER BY
     first_name DESC; // sắp xếp theo first_name sau
 ```
 
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 
 ### 2.5. Sắp xếp theo cột không được SELECT
 
@@ -253,7 +253,7 @@ ORDER BY
     LEN(first_name) DESC; // Sắp xếp giảm dần theo độ dài first_name
 ```
 
-![alt text](image-14.png)
+![alt text](images/image-14.png)
 
 ## 3. OFFSET FETCH
 ### 3.1. Lý thuyết 
@@ -274,7 +274,7 @@ FETCH {FIRST | NEXT} fetch_row_count {ROW | ROWS} ONLY
 
 - Các từ khóa `FIRST` và `NEXT` là từ đồng nghĩa, có thể sử dụng thay thế cho nhau. Tương tự, bạn có thể dùng `ROW` hoặc `ROWS` mà không ảnh hưởng đến kết quả.
 
-![alt text](image-15.png)
+![alt text](images/image-15.png)
 
 > **Lưu ý**
 >- Điều quan trọng cần lưu ý là bạn phải sử dụng các mệnh đề `OFFSET` và `FETCH` cùng với mệnh đề `ORDER BY`. Nếu không, bạn sẽ gặp lỗi.
@@ -294,7 +294,7 @@ ORDER BY
 // không bỏ dòng nào 
 ```
 
-![alt text](image-16.png)
+![alt text](images/image-16.png)
 
 #### 3.2.2. Bỏ qua 10 dòng đầu 
 
@@ -309,7 +309,7 @@ ORDER BY
     product_name 
 OFFSET 10 ROWS; // bỏ qua 10 dòng đầu
 ```
-![alt text](image-17.png)
+![alt text](images/image-17.png)
 
 #### 3.2.3. Bỏ qua 10 dòng đầu và chọn 10 dòng tiếp theo
 ```sql
@@ -324,7 +324,7 @@ ORDER BY
 OFFSET 10 ROWS              // bỏ qua 10 dòng đầu 
 FETCH NEXT 10 ROWS ONLY;    // và lấy 10 dòng tiếp theo 
 ```
-![alt text](image-18.png)
+![alt text](images/image-18.png)
 
 ## 4. TOP
 
@@ -378,7 +378,7 @@ FROM
 ORDER BY 
     list_price DESC;
 ```
-![alt text](image-19.png)
+![alt text](images/image-19.png)
 
 ## 5. DISTINCT
 
