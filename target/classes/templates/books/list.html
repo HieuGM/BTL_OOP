@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+</head>
+<body>
+<h1>Book Management</h1>
+
+<form th:action="@{/admin/books}" method="get">
+    <input type="text" name="q" placeholder="Search by title" th:value="${q}">
+    <button type="submit">Search</button>
+</form>
+
+<a th:href="@{/admin/books/new}">Add New Book</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books.content}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.stock}"></td>
+        <td>
+            <a th:href="@{/admin/books/{id}/edit(id=${book.id})}">Edit</a>
+            <form th:action="@{/admin/books/{id}/delete(id=${book.id})}" method="post" style="display: inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${books.totalPages > 0}" th:with="currentPage=${books.number}">
+        <span th:each="i : ${#numbers.sequence(0, books.totalPages - 1)}">
+            <a th:if="${i != currentPage}" th:href="@{/admin/books(page=${i}, size=${books.size}, q=${q})}" th:text="${i + 1}"></a>
+            <span th:if="${i == currentPage}" th:text="${i + 1}"></span>
+        </span>
+</div>
+</body>
+</html>
