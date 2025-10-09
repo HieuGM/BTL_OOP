@@ -8,20 +8,26 @@
 <h1 th:text="${book.id == null} ? 'Add New Book' : 'Edit Book'"></h1>
 
 <form th:action="${book.id == null} ? @{/admin/books} : @{/admin/books/{id}(id=${book.id})}" th:object="${book}" method="post">
+    <input type="hidden" th:field="*{id}">
+
     <label for="title">Title:</label>
     <input type="text" id="title" th:field="*{title}">
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
     <br>
 
     <label for="author">Author:</label>
     <input type="text" id="author" th:field="*{author}">
+    <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author Error</span>
     <br>
 
     <label for="price">Price:</label>
     <input type="number" step="0.01" id="price" th:field="*{price}">
+    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</span>
     <br>
 
     <label for="stock">Stock:</label>
     <input type="number" id="stock" th:field="*{stock}">
+    <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">Stock Error</span>
     <br>
 
     <button type="submit">Save</button>
