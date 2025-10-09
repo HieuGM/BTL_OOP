@@ -1,5 +1,6 @@
 package com.btl.oop.service.impl;
 
+import com.btl.oop.dto.BookDto;
 import com.btl.oop.entity.Book;
 import com.btl.oop.repository.BookRepository;
 import com.btl.oop.service.BookService;
@@ -31,17 +32,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book create(Book book) {
+    public Book create(BookDto bookDto) {
+        Book book = new Book();
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(bookDto.getAuthor());
+        book.setPrice(bookDto.getPrice());
+        book.setStock(bookDto.getStock());
         return bookRepository.save(book);
     }
 
     @Override
-    public Book update(Long id, Book book) {
+    public Book update(Long id, BookDto bookDto) {
         return bookRepository.findById(id).map(existingBook -> {
-            existingBook.setTitle(book.getTitle());
-            existingBook.setAuthor(book.getAuthor());
-            existingBook.setPrice(book.getPrice());
-            existingBook.setStock(book.getStock());
+            existingBook.setTitle(bookDto.getTitle());
+            existingBook.setAuthor(bookDto.getAuthor());
+            existingBook.setPrice(bookDto.getPrice());
+            existingBook.setStock(bookDto.getStock());
             return bookRepository.save(existingBook);
         }).orElseThrow(() -> new RuntimeException("Book not found with id " + id));
     }
