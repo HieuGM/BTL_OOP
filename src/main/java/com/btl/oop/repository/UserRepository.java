@@ -14,24 +14,32 @@ import java.util.Optional;
  * User Repository
  * Data access layer for User entity
  */
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    
-    Optional<User> findByUsername(String username);
-    
-    Optional<User> findByEmail(String email);
-    
-    boolean existsByUsername(String username);
-    
-    boolean existsByEmail(String email);
-    
+
+    // cho đăng nhập
+    Optional<User> findByNickname(String nickname);
+    boolean existsByNickname(String nickname);
+
+    // lọc active
     Page<User> findByIsActive(Boolean isActive, Pageable pageable);
-    
-    @Query("SELECT u FROM User u WHERE " +
-           "(:search IS NULL OR " +
-           "LOWER(u.username) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.firstName) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.lastName) LIKE LOWER(CONCAT('%', :search, '%')))")
+
+    // search đa trường
+    @Query("""
+       SELECT u FROM User u
+       WHERE (:search IS NULL OR
+              LOWER(u.username)    LIKE LOWER(CONCAT('%', :search, '%')) OR
+              LOWER(u.nickname)    LIKE LOWER(CONCAT('%', :search, '%')) OR
+              LOWER(u.phoneNumber) LIKE LOWER(CONCAT('%', :search, '%')) OR
+              LOWER(u.userAddress) LIKE LOWER(CONCAT('%', :search, '%'))
+       )
+    """)
     Page<User> findBySearchTerm(@Param("search") String search, Pageable pageable);
+
+    // ... các hàm khác ...
+
+    // Dùng để tìm chính xác 1 user (ví dụ: cho login)
+    Optional<User> findByUsername(String username);
+
+    // Dùng để kiểm tra xem username đã tồn tại chưa
+    boolean existsByUsername(String username);
 }
