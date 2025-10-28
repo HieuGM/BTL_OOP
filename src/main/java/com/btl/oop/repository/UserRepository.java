@@ -15,23 +15,6 @@ import java.util.Optional;
  * Data access layer for User entity
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    
-    Optional<User> findByUsername(String username);
-    
-    Optional<User> findByEmail(String email);
-    
+public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByUsername(String username);
-    
-    boolean existsByEmail(String email);
-    
-    Page<User> findByIsActive(Boolean isActive, Pageable pageable);
-    
-    @Query("SELECT u FROM User u WHERE " +
-           "(:search IS NULL OR " +
-           "LOWER(u.username) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.firstName) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.lastName) LIKE LOWER(CONCAT('%', :search, '%')))")
-    Page<User> findBySearchTerm(@Param("search") String search, Pageable pageable);
 }

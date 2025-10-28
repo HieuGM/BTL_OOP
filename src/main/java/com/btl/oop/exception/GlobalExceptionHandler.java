@@ -1,5 +1,6 @@
 package com.btl.oop.exception;
 
+import com.btl.oop.dto.ApiResponse;
 import com.btl.oop.dto.ApiResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Global Exception Handler
- * Handles all exceptions across the application
- */
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    
+
     /**
      * Handle Resource Not Found Exception
      */
@@ -26,7 +28,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ApiResponseDTO.error(ex.getMessage()));
     }
-    
+
     /**
      * Handle Duplicate Resource Exception
      */
@@ -35,7 +37,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ApiResponseDTO.error(ex.getMessage()));
     }
-    
+
     /**
      * Handle Validation Errors
      */
@@ -47,11 +49,11 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponseDTO.error("Validation failed", errors));
     }
-    
+
     /**
      * Handle Generic Exception
      */

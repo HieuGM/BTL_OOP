@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
 
 /**
  * User Entity
@@ -18,38 +21,17 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class User extends BaseEntity {
-    
-    @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
-    
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
-    
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
-    @Column(name = "password", nullable = false)
-    private String password;
-    
-    @Column(name = "first_name")
-    private String firstName;
-    
-    @Column(name = "last_name")
-    private String lastName;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role = Role.USER;
-    
-    @Column(name = "is_active")
-    private Boolean isActive = true;
-    
-    public enum Role {
-        USER, ADMIN, MODERATOR
-    }
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+//@EqualsAndHashCode(callSuper = true)
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    LocalDate dob;
+    Long balance;
+
 }
