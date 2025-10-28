@@ -1,10 +1,6 @@
 package com.btl.oop.service.impl;
 
-import com.btl.oop.dto.UserRequestDTO;
 import com.btl.oop.dto.UserResponseDTO;
-import com.btl.oop.entity.User;
-import com.btl.oop.repository.UserRepository;
-import com.btl.oop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
