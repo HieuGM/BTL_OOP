@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng ký tài khoản</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:32px auto;padding:0 16px;}
+    h1{font-size:1.6rem;margin-bottom:16px}
+    form{display:grid;gap:14px}
+    .field{display:grid;gap:6px}
+    label{font-weight:600}
+    input,textarea,button{padding:10px;border:1px solid #ddd;border-radius:8px;font-size:15px}
+    .errors{color:#b00020;font-size:0.9rem}
+    .help{color:#666;font-size:0.85rem}
+    .row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    button{cursor:pointer;background:#111;color:#fff;border:none;border-radius:8px;padding:10px}
+    .msg{padding:10px 12px;border-radius:8px;background:#f6f6f6}
+  </style>
+</head>
+<body>
+<h1>Đăng ký</h1>
+
+<!-- Nếu có flash message -->
+<p class="msg" th:if="${msg}" th:text="${msg}"></p>
+
+<form th:action="@{/auth/register}" th:object="${form}" method="post" novalidate>
+
+  <!-- CSRF: chỉ render khi có token (vì bạn đã bật CSRF trong SecurityConfig) -->
+  <input type="hidden" th:if="${_csrf != null}"
+         th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+  <!-- ⬇⬇⬇ KHỐI LỖI TỔNG QUÁT: ĐẶT BÊN TRONG FORM + TH:OBJECT -->
+  <div class="errors" th:if="${#fields.hasErrors('*')}">
+    <ul>
+      <li th:each="e : ${#fields.errors('*')}" th:text="${e}"></li>
+    </ul>
+  </div>
+  <!-- ⬆⬆⬆ -->
+
+  <div class="field">
+    <label for="username">Họ và tên *</label>
+    <input id="username" th:field="*{username}" type="text" maxlength="120" required>
+    <div class="errors" th:errors="*{username}"></div>
+  </div>
+
+  <div class="field">
+    <label for="nickname">Tên đăng nhập *</label>
+    <input id="nickname" th:field="*{nickname}" type="text" minlength="3" maxlength="50" required>
+    <div class="errors" th:errors="*{nickname}"></div>
+  </div>
+
+  <div class="field">
+    <label for="password">Mật khẩu *</label>
+    <input id="password" th:field="*{password}" type="password" minlength="8" required>
+    <div class="help">Mật khẩu phải có độ dài tối thiểu 8 kí tự.</div>
+    <div class="errors" th:errors="*{password}"></div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label for="phoneNumber">Số điện thoại *</label>
+      <input id="phoneNumber" th:field="*{phoneNumber}" type="tel" pattern="0\d{9}" placeholder="0XXXXXXXXX" required>
+      <div class="help">Bắt đầu bằng 0 và đủ 10 ký tự.</div>
+      <div class="errors" th:errors="*{phoneNumber}"></div>
+    </div>
+
+    <div class="field">
+      <label for="birthday">Ngày sinh *</label>
+      <input id="birthday" th:field="*{birthday}" type="date" required>
+      <div class="errors" th:errors="*{birthday}"></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="userAddress">Địa chỉ *</label>
+    <textarea id="userAddress" th:field="*{userAddress}" rows="3" maxlength="255" required></textarea>
+    <div class="errors" th:errors="*{userAddress}"></div>
+  </div>
+
+  <button type="submit">Tạo tài khoản</button>
+</form>
+
+<p class="help">Đã có tài khoản? <a th:href="@{/auth/login}">Đăng nhập</a></p>
+</body>
+</html>
