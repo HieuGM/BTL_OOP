@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,5 +56,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void delete(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
     }
 }

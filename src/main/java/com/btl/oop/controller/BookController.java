@@ -2,6 +2,7 @@ package com.btl.oop.controller;
 
 import com.btl.oop.dto.BookDto;
 import com.btl.oop.entity.Book;
+import com.btl.oop.entity.User;
 import com.btl.oop.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -47,6 +49,11 @@ public class BookController {
         }
         bookService.create(bookDto);
         return "redirect:/admin/books";
+    }
+
+    @GetMapping("/test")
+    List<Book> getBooks() {
+        return bookService.getBooks();
     }
 
     @GetMapping("/{id}/edit")
