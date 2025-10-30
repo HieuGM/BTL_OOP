@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/java/com/btl/oop/repository/UserRepository.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/btl/oop/repository/UserRepository.java" />
+              <option name="originalContent" value="package com.btl.oop.repository;&#10;&#10;import com.btl.oop.entity.User;&#10;import org.springframework.data.domain.Page;&#10;import org.springframework.data.domain.Pageable;&#10;import org.springframework.data.jpa.repository.JpaRepository;&#10;import org.springframework.data.jpa.repository.Query;&#10;import org.springframework.data.repository.query.Param;&#10;import org.springframework.stereotype.Repository;&#10;&#10;import java.util.Optional;&#10;&#10;/**&#10; * User Repository&#10; * Data access layer for User entity&#10; */&#10;@Repository&#10;public interface UserRepository extends JpaRepository&lt;User, String&gt; {&#10;    boolean existsByUsername(String username);&#10;}" />
+              <option name="updatedContent" value="package com.btl.oop.repository;&#10;&#10;import com.btl.oop.entity.User;&#10;import org.springframework.data.domain.Page;&#10;import org.springframework.data.domain.Pageable;&#10;import org.springframework.data.jpa.repository.JpaRepository;&#10;import org.springframework.data.jpa.repository.Query;&#10;import org.springframework.data.repository.query.Param;&#10;import org.springframework.stereotype.Repository;&#10;&#10;import java.util.Optional;&#10;&#10;/**&#10; * User Repository&#10; * Data access layer for User entity&#10; */&#10;@Repository&#10;public interface UserRepository extends JpaRepository&lt;User, String&gt; {&#10;    boolean existsByUsername(String username);&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
