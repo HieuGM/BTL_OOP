@@ -20,12 +20,12 @@ public class UserDetailsConfig {
     public UserDetailsService userDetailsService() {
         return (String usernameOrNickname) -> {
             // Ở đây dùng nickname để đăng nhập
-            User u = userRepository.findByNickname(usernameOrNickname)
+            User u = userRepository.findByUsername(usernameOrNickname)
                     .orElseThrow(() -> new UsernameNotFoundException("Not found: " + usernameOrNickname));
 
-            var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + u.getUserRole().name()));
+            var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + u.getRole()));
             return new org.springframework.security.core.userdetails.User(
-                    u.getNickname(),
+                    u.getUsername(),
                     u.getPassword(),
                     u.getIsActive(), // enabled
                     true, true, true,

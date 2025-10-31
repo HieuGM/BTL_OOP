@@ -31,7 +31,9 @@ public class User {
     String password;
     String firstName;
     String lastName;
+    String role;
     LocalDate dob;
     Long balance;
+    Boolean isActive;
 
 }

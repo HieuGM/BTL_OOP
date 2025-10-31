@@ -5,10 +5,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 public class BookDto {
-    private Long id;
+    private UUID id;
 
     @NotBlank(message = "Title cannot be blank")
     private String title;

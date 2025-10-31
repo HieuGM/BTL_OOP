@@ -2,13 +2,13 @@ package com.btl.oop.controller;
 
 import com.btl.oop.dto.BookDto;
 import com.btl.oop.entity.Book;
-import com.btl.oop.entity.User;
 import com.btl.oop.service.BookService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,23 +16,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/books")
+@RequiredArgsConstructor
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
 
     @GetMapping
     public String list(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String q,
-            Model model) {
+            Model model
+    ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> books = bookService.list(pageable, q);
         model.addAttribute("books", books);
+        model.addAttribute("q", q);
         return "books/list";
     }
 
@@ -43,7 +46,9 @@ public class BookController {
     }
 
     @PostMapping
-    public String create(@Valid @ModelAttribute("book") BookDto bookDto, BindingResult result, Model model) {
+    public String create(@Valid @ModelAttribute("book") BookDto bookDto,
+                         BindingResult result,
+                         Model model) {
         if (result.hasErrors()) {
             return "books/form";
         }
@@ -51,30 +56,34 @@ public class BookController {
         return "redirect:/admin/books";
     }
 
+    @ResponseBody
     @GetMapping("/test")
-    List<Book> getBooks() {
+    public List<Book> getBooks() {
         return bookService.getBooks();
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
-        Optional<Book> book = bookService.get(id);
-        if (book.isPresent()) {
-            // Chuyển đổi từ Entity sang DTO để hiển thị trên form
-            BookDto bookDto = new BookDto();
-            bookDto.setId(book.get().getId());
-            bookDto.setTitle(book.get().getTitle());
-            bookDto.setAuthor(book.get().getAuthor());
-            bookDto.setPrice(book.get().getPrice());
-            bookDto.setStock(book.get().getStock());
-            model.addAttribute("book", bookDto);
-            return "books/form";
+    public String editForm(@PathVariable UUID id, Model model) {
+        Optional<Book> bookOpt = bookService.get(id);
+        if (bookOpt.isEmpty()) {
+            return "redirect:/admin/books";
         }
-        return "redirect:/admin/books";
+        Book b = bookOpt.get();
+        BookDto dto = new BookDto();
+        dto.setId(b.getId());          // UUID
+        dto.setTitle(b.getTitle());
+        dto.setAuthor(b.getAuthor());
+        dto.setPrice(b.getPrice());
+        dto.setStock(b.getStock());
+        model.addAttribute("book", dto);
+        return "books/form";
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @Valid @ModelAttribute("book") BookDto bookDto, BindingResult result, Model model) {
+    public String update(@PathVariable UUID id,
+                         @Valid @ModelAttribute("book") BookDto bookDto,
+                         BindingResult result,
+                         Model model) {
         if (result.hasErrors()) {
             return "books/form";
         }
@@ -83,8 +92,9 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
+    @ResponseBody
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         bookService.delete(id);
-        return "redirect:/admin/books";
+        return ResponseEntity.noContent().build(); // 204
     }
 }

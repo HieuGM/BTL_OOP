@@ -13,14 +13,16 @@
   <!-- Nếu bật CSRF: -->
   <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 
-  <div>
-    <label>Nickname</label>
-    <input type="text" th:field="*{nickname}" required/>
+  <div class="field">
+    <label for="nickname">Tên đăng nhập *</label>
+    <input id="nickname" th:field="*{nickname}" required>
+    <div class="errors" th:errors="*{nickname}"></div>
   </div>
-  <div>
-    <label>Password</label>
-    <input type="password" th:field="*{password}" required/>
+  <div class="field">
+    <label for="password">Mật khẩu *</label>
+    <input id="password" th:field="*{password}" required/>
   </div>
+
   <button type="submit">Đăng nhập</button>
 </form>
 

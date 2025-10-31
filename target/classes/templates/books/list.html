@@ -34,10 +34,13 @@
         <td th:text="${book.stock}"></td>
         <td>
             <a th:href="@{/admin/books/{id}/edit(id=${book.id})}">Edit</a>
-            <form th:action="@{/admin/books/{id}(id=${book.id})}" method="post" style="display: inline;">
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this book?');">Delete</button>
-            </form>
+
+            <!-- ✅ Delete bằng AJAX -->
+            <button type="button"
+                    th:attr="data-id=${book.id}"
+                    onclick="delBook(this)">
+                Delete
+            </button>
         </td>
     </tr>
     </tbody>
@@ -49,5 +52,24 @@
             <span th:if="${i == currentPage}" th:text="${i + 1}"></span>
         </span>
 </div>
+
+<script>
+    async function delBook(btn) {
+        if (!confirm("Delete this book?")) return;
+
+        const id = btn.getAttribute("data-id");
+
+        const res = await fetch(`/api/admin/books/${id}`, {
+            method: "DELETE"
+        });
+
+        if (res.ok) {
+            location.reload();      // ✅ giữ nguyên URL
+        } else {
+            alert("Delete failed: HTTP " + res.status);
+        }
+    }
+</script>
+
 </body>
 </html>
