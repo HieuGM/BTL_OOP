@@ -31,24 +31,31 @@
          th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
   <!-- ⬇⬇⬇ KHỐI LỖI TỔNG QUÁT: ĐẶT BÊN TRONG FORM + TH:OBJECT -->
-  <div class="errors" th:if="${#fields.hasErrors('*')}">
-    <ul>
-      <li th:each="e : ${#fields.errors('*')}" th:text="${e}"></li>
-    </ul>
-  </div>
+<!--  <div class="errors" th:if="${#fields.hasErrors('*')}">-->
+<!--    <ul>-->
+<!--      <li th:each="e : ${#fields.errors('*')}" th:text="${e}"></li>-->
+<!--    </ul>-->
+<!--  </div>-->
   <!-- ⬆⬆⬆ -->
 
   <div class="field">
-    <label for="username">Họ và tên *</label>
+    <label for="username">Tên đăng nhập *</label>
     <input id="username" th:field="*{username}" type="text" maxlength="120" required>
     <div class="errors" th:errors="*{username}"></div>
   </div>
 
   <div class="field">
-    <label for="nickname">Tên đăng nhập *</label>
-    <input id="nickname" th:field="*{nickname}" type="text" minlength="3" maxlength="50" required>
-    <div class="errors" th:errors="*{nickname}"></div>
+    <label for="lastname">Họ *</label>
+    <input id="lastname" th:field="*{lastname}" type="text" minlength="3" maxlength="50" required>
+    <div class="errors" th:errors="*{lastname}"></div>
   </div>
+
+  <div class="field">
+    <label for="firstname"> Tên *</label>
+    <input id="firstname" th:field="*{firstname}" type="text" minlength="3" maxlength="50" required>
+    <div class="errors" th:errors="*{firstname}"></div>
+  </div>
+
 
   <div class="field">
     <label for="password">Mật khẩu *</label>
@@ -60,22 +67,26 @@
   <div class="row">
     <div class="field">
       <label for="phoneNumber">Số điện thoại *</label>
+
       <input id="phoneNumber" th:field="*{phoneNumber}" type="tel" pattern="0\d{9}" placeholder="0XXXXXXXXX" required>
       <div class="help">Bắt đầu bằng 0 và đủ 10 ký tự.</div>
+
       <div class="errors" th:errors="*{phoneNumber}"></div>
     </div>
 
     <div class="field">
-      <label for="birthday">Ngày sinh *</label>
-      <input id="birthday" th:field="*{birthday}" type="date" required>
-      <div class="errors" th:errors="*{birthday}"></div>
+      <label for="dob">Ngày sinh *</label>
+      <input id="dob" th:field="*{dob}" type="date" required>
+      <div class="errors" th:errors="*{dob}"></div>
     </div>
   </div>
 
   <div class="field">
-    <label for="userAddress">Địa chỉ *</label>
-    <textarea id="userAddress" th:field="*{userAddress}" rows="3" maxlength="255" required></textarea>
-    <div class="errors" th:errors="*{userAddress}"></div>
+    <label for="address">Địa chỉ *</label>
+
+    <textarea id="address" th:field="*{address}" rows="3" maxlength="255" required></textarea>
+
+    <div class="errors" th:errors="*{address}"></div>
   </div>
 
   <button type="submit">Tạo tài khoản</button>

@@ -19,7 +19,7 @@ public class UserDetailsConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return (String usernameOrNickname) -> {
-            // Ở đây dùng nickname để đăng nhập
+            // Ở đây dùng username để đăng nhập
             User u = userRepository.findByUsername(usernameOrNickname)
                     .orElseThrow(() -> new UsernameNotFoundException("Not found: " + usernameOrNickname));
 

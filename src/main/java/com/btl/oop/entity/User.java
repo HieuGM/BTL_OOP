@@ -37,4 +37,5 @@ public class User {
     String phoneNumber;
     String address;
     Boolean isActive;
+    public enum Role { USER, ADMIN}
 }

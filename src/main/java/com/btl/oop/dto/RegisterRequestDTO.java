@@ -10,29 +10,33 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public class RegisterForm {
+public class RegisterRequestDTO {
     @Getter@Setter
-    @NotBlank @Size(min = 3, max = 50)
-    private String nickname;
-
-    @Getter@Setter
-    @NotBlank @Size(min = 8)
-    private String password;
-
-    @Getter@Setter
-    @NotBlank @Size(max = 120)
+    @Size(min = 3, message = "Tên đăng nhập phải tối tối thiểu 3 kí tự.")
     private String username;
 
     @Getter@Setter
-    @NotBlank @Pattern(regexp = "^0[0-9]{10}$", message = "SĐT phải bắt đầu bằng 0 và đủ 10 chữ số")
+    @Size(min = 8, message = "Mật khẩu phải tối thiểu 8 kí tự.")
+    private String password;
+
+    @Getter@Setter
+    @Size(min = 1, max = 120)
+    private String firstname;
+
+    @Getter@Setter
+    @Size(min = 1, max = 120)
+    private String lastname;
+
+    @Getter@Setter
+    @NotBlank @Pattern(regexp = "^0[0-9]{9}$", message = "SĐT phải bắt đầu bằng 0 và đủ 10 chữ số.")
     private String phoneNumber;
 
     @Getter@Setter
-    @NotBlank @Size(max = 255)
-    private String userAddress;
+    @Size(min = 1, max = 255)
+    private String address;
 
     @Getter@Setter
     @Past @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthday;
+    private LocalDate dob;
 
 }
