@@ -27,6 +27,8 @@ public class UserService {
         user.setLastName(request.getLastName());
         user.setDob(request.getDob());
         user.setBalance(request.getBalance());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setAddress(request.getAddress());
         return userRepository.save(user);
     }
 
@@ -38,7 +40,8 @@ public class UserService {
         user.setLastName(request.getLastName());
         user.setDob(request.getDob());
         user.setBalance(request.getBalance());
-
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setAddress(request.getAddress());
         return userRepository.save(user);
     }
 

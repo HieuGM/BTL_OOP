@@ -14,4 +14,6 @@ public class UserUpdateRequest {
     String lastName;
     LocalDate dob;
     Long balance;
+    String phoneNumber;
+    String address;
 }

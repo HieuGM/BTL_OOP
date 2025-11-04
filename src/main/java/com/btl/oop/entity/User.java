@@ -34,6 +34,7 @@ public class User {
     String role;
     LocalDate dob;
     Long balance;
+    String phoneNumber;
+    String address;
     Boolean isActive;
-
 }

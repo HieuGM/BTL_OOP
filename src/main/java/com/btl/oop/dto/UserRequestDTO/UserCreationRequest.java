@@ -18,4 +18,6 @@ public class UserCreationRequest {
     String lastName;
     LocalDate dob;
     Long balance;
+    String phoneNumber;
+    String address;
 }
