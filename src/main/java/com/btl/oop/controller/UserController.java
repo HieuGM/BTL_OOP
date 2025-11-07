@@ -2,7 +2,7 @@ package com.btl.oop.controller;
 
 import com.btl.oop.dto.*;
 import com.btl.oop.entity.User;
-import com.btl.oop.service.UserService;
+import com.btl.oop.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @PostMapping
     ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {

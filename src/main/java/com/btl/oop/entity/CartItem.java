@@ -1,0 +1,23 @@
+package com.btl.oop.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+public class CartItem {
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    Long id;
+
+    String userId;
+    Long bookId;
+
+    Integer quantity;
+}

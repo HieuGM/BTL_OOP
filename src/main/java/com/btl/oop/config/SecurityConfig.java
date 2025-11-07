@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -49,8 +50,10 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 
                         // 4. Tất cả các request còn lại BẮT BUỘC phải xác thực
-                        .anyRequest().authenticated()
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
+
                 .formLogin(form -> form
                         .loginPage("/auth/login")            // GET: Spring sẽ trỏ đến đây
                         .loginProcessingUrl("/auth/login")   // POST: Spring xử lý
@@ -65,8 +68,8 @@ public class SecurityConfig {
 
         return http.build();
     }
-    private final org.springframework.security.core.userdetails.UserDetailsService userDetailsService;
-    public SecurityConfig(org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
+    private final UserDetailsService userDetailsService;
+    public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
