@@ -59,7 +59,7 @@ public class AuthController {
     @PostMapping("/auth/register")
     public String doRegister(@Valid @ModelAttribute ("form") RegisterRequestDTO form, BindingResult br, RedirectAttributes ra){
         if (br.hasErrors()) return "auth/register";
-        //authServiceImpl.register(form);
+        authServiceImpl.register(form);
         ra.addFlashAttribute("successMessage", "Đăng ký thành công! Hãy đăng nhập.");
         return "redirect:/auth/login";
     }
